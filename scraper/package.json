@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "csv-writer": "^1.6.0",
+    "node-fetch": "^3.2.5",
     "puppeteer": "^14.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
-  }
+  },
+  "type": "module"
 }

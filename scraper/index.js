@@ -1,4 +1,5 @@
-const puppeteer = require("puppeteer")
+import puppeteer from "puppeteer"
+import fetch from "node-fetch"
 /*
 const createCsvWriter = require("csv-writer").createObjectCsvWriter
 
@@ -20,7 +21,8 @@ async function fetchData(url) {
     await page.goto(url)
 
     const article = {
-      url
+      url,
+      user_id: "test-user"
     }
 
     const title = await page.title()
@@ -76,7 +78,10 @@ const addArticle = (article) => {
   try {
     fetch("http://localhost:8000/add-article", {
       method: "POST",
-      body: JSON.stringify({ article })
+      body: JSON.stringify(article),
+      headers: {
+        "Content-Type": "application/json"
+      }
     })
   } catch (error) {
     throw error
