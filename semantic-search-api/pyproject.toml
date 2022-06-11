@@ -9,6 +9,10 @@ python = "^3.9"
 fastapi = "^0.78.0"
 uvicorn = "^0.17.6"
 sentence-transformers = "^2.2.0"
+SQLAlchemy = "^1.4.37"
+pgvector = "^0.1.6"
+psycopg2-binary = "^2.9.3"
+python-decouple = "^3.6"
 
 [tool.poetry.dev-dependencies]
 

@@ -54,7 +54,6 @@ async function fetchData(url) {
 
     await browser.close()
 
-    console.log(article)
     addArticle(article)
   } catch (error) {
     console.log(error)

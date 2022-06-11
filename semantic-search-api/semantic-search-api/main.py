@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
 
+from . import crud
+
 app = FastAPI()
 
 model = SentenceTransformer("multi-qa-mpnet-base-dot-v1")
@@ -24,5 +26,7 @@ def search(query: str):
 
 @app.post("/add-article")
 async def addArticle(article: Article):
-    print(article.title)
+    vector = model.encode(article.content)
+    crud.addArticle(url=article.url, title=article.title, content=article.content, vector_emb=vector)
+
     return "Success"
