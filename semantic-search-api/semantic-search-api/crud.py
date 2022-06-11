@@ -25,3 +25,8 @@ def addArticle(url, title, content, vector_emb):
     s.add(article)
     s.commit()
     s.close()
+
+def search(query_emb):
+    s = Session()
+    print(s.query(models.Article).order_by(models.Article.vector_emb.cosine_distance(query_emb)).limit(2).all())
+    s.close()

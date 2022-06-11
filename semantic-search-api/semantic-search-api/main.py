@@ -22,11 +22,13 @@ def index():
 @app.get("/search/{query}")
 def search(query: str):
     query_emb = model.encode(query)
+    print(query)
+    crud.search(query_emb)
     return "Query embedding done" 
 
 @app.post("/add-article")
 async def addArticle(article: Article):
     vector = model.encode(article.content)
-    crud.addArticle(url=article.url, title=article.title, content=article.content, vector_emb=vector)
+    crud.addArticle(article.url, article.title, article.content, vector)
 
     return "Success"

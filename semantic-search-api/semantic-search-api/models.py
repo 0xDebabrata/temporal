@@ -16,5 +16,5 @@ class Article(Base):
     vector_emb = Column(Vector(768))
 
     def __repr__(self):
-        return "<Book(title='{}', content='{}', url='{}')"\
-                .format(self.title, self.author, self.url)
+        return "{}\n"\
+                .format(self.title)
