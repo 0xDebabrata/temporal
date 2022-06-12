@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <nav className="flex items-center justify-between px-5 pt-5 font-Montserrat bg-zinc-800">
-      <Link href="/app">
+      <Link href={(!isLoading && user) ? "/app" : "/"}>
         <h1 className="ml-10 text-center hover:cursor-pointer text-zinc-200 h-min font-Michroma">
           Temporal
         </h1>
