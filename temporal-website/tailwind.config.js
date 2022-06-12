@@ -12,6 +12,9 @@ module.exports = {
       fontFamily: {
         Montserrat: ["Montserrat", "sans-serif"],
         Michroma: ["Michroma", "sans-serif"]
+      },
+      colors: {
+        "light-blue": "#CBB2FF"
       }
     },
   },
