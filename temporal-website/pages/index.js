@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Footer from "../components/Footer"
 
 export default function Home() {
   return (
@@ -10,7 +9,7 @@ export default function Home() {
         </Head>
 
         <div className="mx-auto max-w-800">
-          <h1 className="font-bold text-center text-logo text-8xl font-Michroma pt-[20vh]">
+          <h1 className="text-center text-logo text-8xl font-Michroma pt-[20vh]">
             Temporal
           </h1>
           <p className="my-5 text-xl text-center font-Michroma text-light-blue">
@@ -22,7 +21,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <Footer />
     </>
   )
 }
