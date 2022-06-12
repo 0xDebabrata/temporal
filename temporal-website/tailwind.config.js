@@ -14,8 +14,8 @@ module.exports = {
         Michroma: ["Michroma", "sans-serif"]
       },
       colors: {
-        "light-blue": "#CBB2FF",
-        "light-pink": "#D6B9F7"
+        "light-blue": "#AECAFF",
+        "light-pink": "#CBB2FF"
       }
     },
   },

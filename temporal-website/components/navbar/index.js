@@ -30,13 +30,13 @@ export default function Navbar() {
 
       {(!isLoading && user) ? (
         <a href={message === "Logout" ? "/api/auth/logout" : "/app"}
-          className="px-5 py-1 mr-10 border-none text-light-pink hover:text-zinc-200 hover:bg-light-blue/50 bg-light-blue/20 transition-all duration-300 rounded-md"
+          className="px-5 py-1 mr-10 border-none text-light-pink hover:text-zinc-200 hover:bg-light-pink/50 bg-light-pink/20 transition-all duration-300 rounded-md"
         >
           {message}
         </a>
       ) : (
         <a href="/api/auth/login"
-          className="px-5 py-1 mr-10 border-none text-light-pink hover:text-zinc-200 hover:bg-light-blue/50 bg-light-blue/20 transition-all duration-300 rounded-md"
+          className="px-5 py-1 mr-10 border-none text-light-pink hover:text-zinc-200 hover:bg-light-pink/50 bg-light-pink/20 transition-all duration-300 rounded-md"
         >
           Login
         </a>
