@@ -7,12 +7,14 @@ export default function Application() {
     {
       id: 1,
       title: "Semantic Search and BERT",
-      saved_at: new Date()
+      saved_at: new Date(),
+      url: "https://implicit-orange-booby.faviconkit.com/townhall.hashnode.com/256"
     },
     {
       id: 2,
       saved_at: new Date(),
-      title: "Cloud computing with Linode"
+      title: "Cloud computing with Linode",
+      url: "https://implicit-orange-booby.faviconkit.com/linode.com/256"
     }
   ]
 

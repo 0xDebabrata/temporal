@@ -6,7 +6,7 @@ export default function Article({ article }) {
       <div className="w-[52px] h-[52px] rounded-md mr-5">
         <Image
           className="rounded-md"
-          src="/default-favicon.svg"
+          src={article.url}
           alt="Default article website favicon"
           width={52}
           height={52}
