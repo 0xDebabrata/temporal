@@ -1,8 +1,10 @@
-import { withPageAuthRequired } from "@auth0/nextjs-auth0"
+import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0"
 
 import Article from "../components/Article"
+import AddButton from "../components/AddButton"
 
-export default function Application() {
+export default function Application({ user }) {
+  console.log(user.email)
   const data = [
     {
       id: 1,
@@ -29,9 +31,18 @@ export default function Application() {
           <Article article={article} />
         ))}
       </div>
+
+      <AddButton />
     </div>
   )
 }
 
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(ctx) {
+    const user = getSession(ctx.req, ctx.res)
+    return {
+      props: { user }
+    }
+  }
+})
 
