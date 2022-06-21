@@ -22,7 +22,7 @@ async function fetchData(url) {
 
     const article = {
       url,
-      user_id: "test-user"
+      user_email: "test@gmail.com"
     }
 
     const title = await page.title()

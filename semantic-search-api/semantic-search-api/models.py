@@ -10,7 +10,7 @@ Base = declarative_base()
 class Article(Base):
     __tablename__ = "articles"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), default=uuid.uuid4)
+    user_email = Column(String)
     url = Column(String)
     title = Column(String)
     content = Column(String)
