@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function Article({ article }) {
   return (
-    <div className="flex items-center justify-start w-full p-5 mb-5 border-none cursor-default font-Montserrat bg-light-pink/20 rounded-md">
+    <div className="flex items-center justify-start w-full p-5 mb-5 border-none cursor-default font-Montserrat bg-light-pink/20 rounded-md bg-zinc-700">
       <div className="w-[52px] h-[52px] rounded-md mr-5">
         <Image
           className="rounded-md"

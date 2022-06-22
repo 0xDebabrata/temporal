@@ -4,6 +4,7 @@ import Article from "../components/Article"
 import AddButton from "../components/AddButton"
 
 export default function Application({ user }) {
+  
   console.log(user.email)
   const data = [
     {
