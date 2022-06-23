@@ -14,7 +14,11 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
     e.preventDefault()
     const promise = sendUrl()
     toast.promise(promise, {
-      success: "Article saved!",
+      success: () => {
+        setIsOpen(false)
+        setUrl("")
+        return "Article saved!"
+      },
       loading: "Saving...",
       error: "Error saving article"
     })
