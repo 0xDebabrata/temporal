@@ -25,6 +25,26 @@ const server = http.createServer(async (req, res) => {
         })
         .end(error.message)
     }
+  } else if (url.pathname === "/get-articles") {
+    try {
+      const email = url.searchParams.get("email")
+
+      const articles = await fetchArticles(email)
+
+      res
+        .writeHead(200, {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        })
+        .end(JSON.stringify(articles))
+    } catch (error) {
+      res
+        .writeHead(500, {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": "*",
+        })
+        .end(error.message)
+    }
   }
 })
 
@@ -102,3 +122,16 @@ const addArticle = async (article) => {
     throw error
   }
 }
+
+const fetchArticles = async (email) => {
+  return new Promise((resolve, reject) => {
+    try {
+      fetch(`http://localhost:8000/${email}`)
+        .then(resp => resp.json())
+        .then(data => resolve(data))
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+

@@ -12,6 +12,23 @@ DATABASE_URI = "postgresql+psycopg2://postgres:{}@127.0.0.1:5433/temporal".forma
 engine = create_engine(DATABASE_URI)
 Session = sessionmaker(bind=engine)
 
+def getArticles(email):
+    s = Session()
+    articles = []
+    a = models.Article
+    result = s.query(a.id, a.title, a.url, a.time).filter(models.Article.user_email == email).order_by(models.Article.time.desc()).all()
+
+    for row in result:
+        articles.append({
+            "id": row[0],
+            "title": row[1],
+            "url": row[2],
+            "time": row[3]
+        })
+
+    s.close()
+    return articles
+
 def addArticle(url, user_email, title, content, vector_emb):
     s = Session()
 

@@ -15,9 +15,10 @@ class Article(BaseModel):
     url: str
     user_email: str
 
-@app.get("/")
-def index():
-    return "Hello world"
+@app.get("/{email}")
+def getArticles(email: str):
+    articles = crud.getArticles(email)
+    return articles
 
 @app.get("/search/{query}")
 def search(query: str):
@@ -32,3 +33,7 @@ async def addArticle(article: Article):
     crud.addArticle(article.url, article.user_email, article.title, article.content, vector)
 
     return "Success"
+
+@app.get("/ping")
+def ping():
+    return "pong"

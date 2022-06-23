@@ -3,7 +3,8 @@ import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0"
 import Article from "../components/Article"
 import AddButton from "../components/AddButton"
 
-export default function Application({ user }) {
+export default function Application({ user, articles }) {
+  console.log(articles)
   
   const data = [
     {
@@ -39,9 +40,14 @@ export default function Application({ user }) {
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
-    const user = getSession(ctx.req, ctx.res)
+    const { user } = getSession(ctx.req, ctx.res)
+
+    const articles = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/get-articles?email=${user.email}`)
+      .then(resp => resp.json())
+      .then(json => json)
+
     return {
-      props: { user }
+      props: { user, articles }
     }
   }
 })

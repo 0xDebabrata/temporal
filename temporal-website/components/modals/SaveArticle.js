@@ -27,7 +27,7 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
   const sendUrl = async () => {
     return new Promise((resolve, reject) => {
       try {
-        fetch(`${process.env.NEXT_PUBLIC_SCRAPER_URL}/add-article`, {
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/add-article`, {
           method: "POST",
           body: JSON.stringify({
             url,
