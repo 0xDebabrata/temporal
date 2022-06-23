@@ -4,23 +4,6 @@ import Article from "../components/Article"
 import AddButton from "../components/AddButton"
 
 export default function Application({ user, articles }) {
-  console.log(articles)
-  
-  const data = [
-    {
-      id: 1,
-      title: "Semantic Search and BERT",
-      saved_at: new Date(),
-      url: "https://implicit-orange-booby.faviconkit.com/townhall.hashnode.com/256"
-    },
-    {
-      id: 2,
-      saved_at: new Date(),
-      title: "Cloud computing with Linode",
-      url: "https://implicit-orange-booby.faviconkit.com/linode.com/256"
-    }
-  ]
-
   return (
     <div className="min-h-screen bg-zinc-800">
       <div className="mx-auto w-[80%] max-w-[1000px]">
@@ -28,8 +11,8 @@ export default function Application({ user, articles }) {
           Your articles
         </h1>
 
-        {data.map(article => (
-          <Article article={article} />
+        {articles.map(article => (
+          <Article key={article.id} article={article} />
         ))}
       </div>
 

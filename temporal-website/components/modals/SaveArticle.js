@@ -2,6 +2,8 @@ import { Fragment, useState } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import toast from "react-hot-toast"
 
+import { getFaviconUrl } from "../../utils/getFaviconUrl"
+
 export default function SaveArticle({ isOpen, setIsOpen, user }) {
   const [url, setUrl] = useState("")
   const closeModal = () => setIsOpen(false)
@@ -40,15 +42,6 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
         reject(error)
       }
     })
-  }
-
-  const getFaviconUrl = () => {
-    const parts = url.split("://")
-    if (parts[1].includes("www")) {
-      return parts[1].split("www.")[1]
-    } else {
-      return parts[1]
-    }
   }
 
   return (
@@ -100,7 +93,7 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
                       <img
                         width="28px"
                         height="28px"
-                        src={`https://implicit-orange-booby.faviconkit.com/${getFaviconUrl()}/256`}
+                        src={`https://implicit-orange-booby.faviconkit.com/${getFaviconUrl(url)}/256`}
                         alt="Entered URL favicon"
                         className="absolute rounded-md right-1.5 top-1"
                       />
@@ -109,7 +102,10 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
                     <div className="flex justify-end w-full mt-4">
                       <button
                         type="button"
-                        onClick={closeModal}
+                        onClick={() => {
+                          closeModal()
+                          setUrl("")
+                        }}
                         className="px-6 py-1 rounded-md text-zinc-200 font-Montserrat hover:bg-zinc-700"
                       >
                         Close
