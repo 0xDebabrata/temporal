@@ -27,7 +27,7 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
   const sendUrl = async () => {
     return new Promise((resolve, reject) => {
       try {
-        fetch(`${process.env.NEXT_PUBLIC_SCRAPER_URL}/`, {
+        fetch(`${process.env.NEXT_PUBLIC_SCRAPER_URL}/add-article`, {
           method: "POST",
           body: JSON.stringify({
             url,
@@ -44,7 +44,11 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
 
   const getFaviconUrl = () => {
     const parts = url.split("://")
-    return parts[1]
+    if (parts[1].includes("www")) {
+      return parts[1].split("www.")[1]
+    } else {
+      return parts[1]
+    }
   }
 
   return (

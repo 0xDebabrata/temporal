@@ -3,24 +3,28 @@ import fetch from "node-fetch"
 import http from "http"
 
 const server = http.createServer(async (req, res) => {
-  try {
-    const data = await parseBody(req)
-    const article = await fetchData(data.url, data.email)
-    await addArticle(article)
+  const url = new URL(req.url, "http://localhost:8000")
 
-    res
-      .writeHead(200, {
-        "Content-Type": "text/plain",
-        "Access-Control-Allow-Origin": "*",
-      })
-      .end("OK")
-  } catch (error) {
-    res
-      .writeHead(500, {
-        "Content-Type": "text/plain",
-        "Access-Control-Allow-Origin": "*",
-      })
-      .end(error.message)
+  if (url.pathname === "/add-article") {
+    try {
+      const data = await parseBody(req)
+      const article = await fetchData(data.url, data.email)
+      await addArticle(article)
+
+      res
+        .writeHead(200, {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": "*",
+        })
+        .end("OK")
+    } catch (error) {
+      res
+        .writeHead(500, {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": "*",
+        })
+        .end(error.message)
+    }
   }
 })
 
