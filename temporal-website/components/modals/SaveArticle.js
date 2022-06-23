@@ -1,7 +1,8 @@
 import { Fragment, useState } from "react"
 import { Dialog, Transition } from "@headlessui/react"
+import toast from "react-hot-toast"
 
-export default function SaveArticle({ isOpen, setIsOpen }) {
+export default function SaveArticle({ isOpen, setIsOpen, user }) {
   const [url, setUrl] = useState("")
   const closeModal = () => setIsOpen(false)
 
@@ -11,7 +12,30 @@ export default function SaveArticle({ isOpen, setIsOpen }) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(url)
+    const promise = sendUrl()
+    toast.promise(promise, {
+      success: "Article saved!",
+      loading: "Saving...",
+      error: "Error saving article"
+    })
+  }
+
+  const sendUrl = async () => {
+    return new Promise((resolve, reject) => {
+      try {
+        fetch(`${process.env.NEXT_PUBLIC_SCRAPER_URL}/`, {
+          method: "POST",
+          body: JSON.stringify({
+            url,
+            email: user.email
+          })
+        })
+          .then(resp => resp.text())
+          .then(text => resolve(text))
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 
   const getFaviconUrl = () => {

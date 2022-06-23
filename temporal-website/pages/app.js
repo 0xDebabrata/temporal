@@ -5,7 +5,6 @@ import AddButton from "../components/AddButton"
 
 export default function Application({ user }) {
   
-  console.log(user.email)
   const data = [
     {
       id: 1,
@@ -33,7 +32,7 @@ export default function Application({ user }) {
         ))}
       </div>
 
-      <AddButton />
+      <AddButton user={user} />
     </div>
   )
 }

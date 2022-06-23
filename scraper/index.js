@@ -1,19 +1,45 @@
 import puppeteer from "puppeteer"
 import fetch from "node-fetch"
-/*
-const createCsvWriter = require("csv-writer").createObjectCsvWriter
+import http from "http"
 
-const csvWriter = createCsvWriter({
-  path: "out.csv",
-  header: [
-    { id: "title", title: "title" },
-    { id: "url", title: "url" },
-    { id: "paragraphs", title: "paragraphs" },
-  ]
+const server = http.createServer(async (req, res) => {
+  try {
+    const data = await parseBody(req)
+    const article = await fetchData(data.url, data.email)
+    await addArticle(article)
+
+    res
+      .writeHead(200, {
+        "Content-Type": "text/plain",
+        "Access-Control-Allow-Origin": "*",
+      })
+      .end("OK")
+  } catch (error) {
+    res
+      .writeHead(500, {
+        "Content-Type": "text/plain",
+        "Access-Control-Allow-Origin": "*",
+      })
+      .end(error.message)
+  }
 })
-*/
 
-async function fetchData(url) {
+server.listen(8080)
+
+// Function to parse nodejs request body
+const parseBody = async (req) => {
+  const buffer = []
+
+  for await (const chunk of req) {
+    buffer.push(chunk)
+  }
+
+  let data = Buffer.concat(buffer).toString()
+  data = JSON.parse(data)
+  return data
+}
+
+async function fetchData(url, email) {
   try {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
@@ -22,7 +48,7 @@ async function fetchData(url) {
 
     const article = {
       url,
-      user_email: "test@gmail.com"
+      user_email: email
     }
 
     const title = await page.title()
@@ -31,9 +57,9 @@ async function fetchData(url) {
     const data = await page.evaluate(() => {
       let content = ""
 
-      const article = document.getElementsByTagName("article")[0]
-      const pTags = article.querySelectorAll("p")
-      const liTags = article.querySelectorAll("li")
+      // const article = document.getElementsByTagName("article")[0]
+      const pTags = document.querySelectorAll("p")
+      const liTags = document.querySelectorAll("li")
 
       for (const p of pTags) {
         if (p.innerText) {
@@ -47,33 +73,19 @@ async function fetchData(url) {
         }
       }
 
-      return content 
+      return content
     })
 
     article.content = data
 
     await browser.close()
-
-    addArticle(article)
+    return article
   } catch (error) {
-    console.log(error)
+    throw error
   }
 }
 
-const urlList = [
-  "https://townhall.hashnode.com/build-with-linode-hackathon-june-2022",
-  "https://blog.paul-verdure.com/how-i-made-the-most-out-of-my-coding-bootcamp",
-  "https://towardsdatascience.com/the-best-document-similarity-algorithm-in-2020-a-beginners-guide-a01b9ef8cf05",
-  "https://medium.com/mlearning-ai/semantic-search-with-s-bert-is-all-you-need-951bc710e160",
-  "https://towardsdatascience.com/billion-scale-semantic-similarity-search-with-faiss-sbert-c845614962e2",
-  "https://jeffpohlmeyer.com/building-a-blog-with-sveltekit-tailwindcss-and-mdsvex",
-  "https://ezefizzy.hashnode.dev/introduction-to-git-and-github",
-  "https://sagarpreet.in/monorepo-building-one-roof-for-your-ui-apps"
-]
-
-fetchData(urlList[4])
-
-const addArticle = (article) => {
+const addArticle = async (article) => {
   try {
     fetch("http://localhost:8000/add-article", {
       method: "POST",

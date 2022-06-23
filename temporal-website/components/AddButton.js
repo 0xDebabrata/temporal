@@ -3,7 +3,7 @@ import Image from "next/image"
 
 import SaveArticle from "./modals/SaveArticle"
 
-export default function AddButton() {
+export default function AddButton({ user }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const openModal = () => setIsOpen(true)
@@ -21,7 +21,7 @@ export default function AddButton() {
         />
       </div>
 
-      <SaveArticle isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SaveArticle isOpen={isOpen} setIsOpen={setIsOpen} user={user} />
     </>
   )
 }

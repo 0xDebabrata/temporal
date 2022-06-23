@@ -12,11 +12,12 @@ DATABASE_URI = "postgresql+psycopg2://postgres:{}@127.0.0.1:5433/temporal".forma
 engine = create_engine(DATABASE_URI)
 Session = sessionmaker(bind=engine)
 
-def addArticle(url, title, content, vector_emb):
+def addArticle(url, user_email, title, content, vector_emb):
     s = Session()
 
     article = models.Article(
         url=url,
+        user_email=user_email,
         title=title,
         content=content,
         vector_emb=vector_emb

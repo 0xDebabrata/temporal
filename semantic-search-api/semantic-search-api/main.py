@@ -13,7 +13,7 @@ class Article(BaseModel):
     content: str
     title: str
     url: str
-    user_id: str
+    user_email: str
 
 @app.get("/")
 def index():
@@ -29,6 +29,6 @@ def search(query: str):
 @app.post("/add-article")
 async def addArticle(article: Article):
     vector = model.encode(article.content)
-    crud.addArticle(article.url, article.title, article.content, vector)
+    crud.addArticle(article.url, article.user_email, article.title, article.content, vector)
 
     return "Success"
