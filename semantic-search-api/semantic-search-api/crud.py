@@ -48,3 +48,16 @@ def search(query_emb):
     s = Session()
     print(s.query(models.Article).order_by(models.Article.vector_emb.cosine_distance(query_emb)).limit(2).all())
     s.close()
+
+def deleteArticle(id):
+    s = Session()
+    article = s.get(models.Article, id)
+
+    if article:
+        s.delete(article)
+        s.commit()
+        s.close()
+        return 1
+    else:
+        s.close()
+        return 0

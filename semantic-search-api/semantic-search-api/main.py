@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
 
@@ -33,6 +33,14 @@ async def addArticle(article: Article):
     crud.addArticle(article.url, article.user_email, article.title, article.content, vector)
 
     return "Success"
+
+@app.delete("/delete-article/{id}")
+def deleteArticle(id: str):
+    flag = crud.deleteArticle(id)
+    if flag:
+        return "Success"
+    else:
+        raise HTTPException(status_code=404, detail="Article not found")
 
 @app.get("/ping")
 def ping():

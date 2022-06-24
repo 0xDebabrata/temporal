@@ -1,18 +1,21 @@
+import { useState } from 'react';
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0"
 
 import Article from "../components/Article"
 import AddButton from "../components/AddButton"
 
 export default function Application({ user, articles }) {
+  const [articlesList, setArticlesList] = useState(articles);
+
   return (
-    <div className="min-h-screen bg-zinc-800">
+    <div className="min-h-screen pb-5 bg-zinc-800">
       <div className="mx-auto w-[80%] max-w-[1000px]">
         <h1 className="py-8 text-3xl font-bold text-zinc-200 font-Montserrat">
           Your articles
         </h1>
 
-        {articles.map(article => (
-          <Article key={article.id} article={article} />
+        {articlesList.map(article => (
+          <Article key={article.id} setArticlesList={setArticlesList} article={article} />
         ))}
       </div>
 

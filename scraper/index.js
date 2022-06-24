@@ -45,6 +45,37 @@ const server = http.createServer(async (req, res) => {
         })
         .end(error.message)
     }
+  } else if (url.pathname === "/delete-article") {
+    if (req.method === "DELETE") {
+      try {
+        const id = url.searchParams.get("id")
+
+        const data = await deleteArticle(id)
+
+        res
+          .writeHead(200, {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+          })
+          .end(JSON.stringify({ data }))
+      } catch (error) {
+        res
+          .writeHead(500, {
+            "Content-Type": "text/plain",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+          })
+          .end(error.message)
+      }
+    } else {
+      res
+        .writeHead(200, {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+        })
+        .end("OK")
+    }
   }
 })
 
@@ -135,3 +166,16 @@ const fetchArticles = async (email) => {
   })
 }
 
+const deleteArticle = async (id) => {
+  return new Promise((resolve, reject) => {
+    try {
+      fetch(`http://localhost:8000/delete-article/${id}`, {
+        method: "DELETE"
+      })
+        .then(resp => resp.text())
+        .then(data => resolve(data))
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
