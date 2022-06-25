@@ -20,7 +20,7 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
       success: () => {
         setIsOpen(false)
         setUrl("")
-        if (window) {
+        if (window && window.location.pathname === "/app") {
           window.location.replace(`${window.location.origin}/app`)
         }
         return "Article saved!"
