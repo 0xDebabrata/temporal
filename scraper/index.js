@@ -77,14 +77,11 @@ const server = http.createServer(async (req, res) => {
         .end("OK")
     }
   } else if (url.pathname === "/search") {
-    console.log(url)
     try {
       const email = url.searchParams.get("email")
       const query = url.searchParams.get("query")
 
       const articles = await search(email, query)
-      console.log(query)
-      console.log(articles)
 
       res
         .writeHead(200, {
