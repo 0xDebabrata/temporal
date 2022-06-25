@@ -1,13 +1,11 @@
 import { Fragment, useState } from "react"
 import { Dialog, Transition } from "@headlessui/react"
-import { useRouter } from "next/router"
 import toast from "react-hot-toast"
 
 import { getFaviconUrl } from "../../utils/getFaviconUrl"
 
 export default function SaveArticle({ isOpen, setIsOpen, user }) {
   const [url, setUrl] = useState("")
-  const router = useRouter()
 
   const closeModal = () => setIsOpen(false)
 
@@ -22,7 +20,9 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
       success: () => {
         setIsOpen(false)
         setUrl("")
-        router.reload()
+        if (window) {
+          window.location.replace(`${window.location.origin}/app`)
+        }
         return "Article saved!"
       },
       loading: "Saving...",
