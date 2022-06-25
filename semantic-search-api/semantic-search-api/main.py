@@ -20,12 +20,11 @@ def getArticles(email: str):
     articles = crud.getArticles(email)
     return articles
 
-@app.get("/search/{query}")
-def search(query: str):
+@app.get("/search/")
+def search(email: str, query: str = ""):
     query_emb = model.encode(query)
-    print(query)
-    crud.search(query_emb)
-    return "Query embedding done" 
+    articles = crud.search(email, query_emb)
+    return articles
 
 @app.post("/add-article")
 async def addArticle(article: Article):

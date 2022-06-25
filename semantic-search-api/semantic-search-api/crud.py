@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, and_
 from sqlalchemy.orm import sessionmaker
 import psycopg2
 from decouple import config
@@ -44,10 +44,28 @@ def addArticle(url, user_email, title, content, vector_emb):
     s.commit()
     s.close()
 
-def search(query_emb):
+def search(email, query_emb):
     s = Session()
-    print(s.query(models.Article).order_by(models.Article.vector_emb.cosine_distance(query_emb)).limit(2).all())
+    articles = []
+    a = models.Article
+
+    result = s.query(a.id, a.title, a.url, a.time).filter(
+        and_(
+            models.Article.vector_emb.cosine_distance(query_emb) < 0.75,
+            models.Article.user_email == email
+        )
+    ).order_by(models.Article.vector_emb.cosine_distance(query_emb)).all()
+
+    for row in result:
+        articles.append({
+            "id": row[0],
+            "title": row[1],
+            "url": row[2],
+            "time": row[3]
+        })
+
     s.close()
+    return articles
 
 def deleteArticle(id):
     s = Session()

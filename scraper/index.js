@@ -76,6 +76,30 @@ const server = http.createServer(async (req, res) => {
         })
         .end("OK")
     }
+  } else if (url.pathname === "/search") {
+    console.log(url)
+    try {
+      const email = url.searchParams.get("email")
+      const query = url.searchParams.get("query")
+
+      const articles = await search(email, query)
+      console.log(query)
+      console.log(articles)
+
+      res
+        .writeHead(200, {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        })
+        .end(JSON.stringify(articles))
+    } catch (error) {
+      res
+        .writeHead(500, {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": "*",
+        })
+        .end(error.message)
+    }
   }
 })
 
@@ -173,6 +197,18 @@ const deleteArticle = async (id) => {
         method: "DELETE"
       })
         .then(resp => resp.text())
+        .then(data => resolve(data))
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+const search = async (email, query) => {
+  return new Promise((resolve, reject) => {
+    try {
+      fetch(`http://localhost:8000/search/?email=${email}&query=${query}`)
+        .then(resp => resp.json())
         .then(data => resolve(data))
     } catch (error) {
       reject(error)
