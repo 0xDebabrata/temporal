@@ -29,16 +29,20 @@ export default function Navbar() {
       </Link>
 
       {(!isLoading && user) ? (
-        <Link href={message === "Logout" ? "/api/auth/logout" : "/app"}
-          className={`${message === "Logout" ? "bg-light-pink/20 text-light-pink hover:bg-light-pink/50" : "bg-light-pink/80 hover:bg-light-pink/100 text-zinc-100"} px-5 py-1 mr-10 border-none hover:text-zinc-200 transition-all duration-300 rounded-md`}
-        >
-          {message}
+        <Link href={message === "Logout" ? "/api/auth/logout" : "/app"}>
+          <div
+            className={`${message === "Logout" ? "bg-light-pink/20 text-light-pink hover:bg-light-pink/50" : "bg-light-pink/80 hover:bg-light-pink/100 text-zinc-100"} px-5 py-1 mr-10 border-none hover:text-zinc-200 transition-all duration-300 rounded-md`}
+          >
+            {message}
+          </div>
         </Link>
       ) : (
-        <Link href="/api/auth/login"
-          className="px-5 py-1 mr-10 border-none text-light-pink hover:text-zinc-200 hover:bg-light-pink/50 bg-light-pink/20 transition-all duration-300 rounded-md"
-        >
-          Login
+        <Link href="/api/auth/login">
+          <div
+            className="px-5 py-1 mr-10 border-none text-light-pink hover:text-zinc-200 hover:bg-light-pink/50 bg-light-pink/20 transition-all duration-300 rounded-md"
+          >
+            Login
+          </div>
         </Link>
       )}
     </nav>
