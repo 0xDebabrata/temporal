@@ -15,6 +15,8 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
 
   const handleSubmit = e => {
     e.preventDefault()
+    if (!url.trim()) return;
+
     const promise = sendUrl()
     toast.promise(promise, {
       success: () => {
@@ -87,6 +89,7 @@ export default function SaveArticle({ isOpen, setIsOpen, user }) {
                     className="relative mt-4"
                   >
                     <input
+                      required
                       type="url"
                       placeholder="https://townhall.hashnode.com/build-with-linode-hackathon-june-2022"
                       value={url}
