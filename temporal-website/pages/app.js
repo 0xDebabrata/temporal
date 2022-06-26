@@ -33,12 +33,19 @@ export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
     const { user } = getSession(ctx.req, ctx.res)
 
-    const articles = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/get-articles?email=${user.email}`)
-      .then(resp => resp.json())
-      .then(json => json)
+    try {
+      const articles = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/get-articles?email=${user.email}`)
+        .then(resp => resp.json())
+        .then(json => json)
 
-    return {
-      props: { user, articles }
+      return {
+        props: { user, articles }
+      }
+    } catch (error) {
+      console.error(error)
+      return {
+        props: { user, articles: [] }
+      }
     }
   }
 })
