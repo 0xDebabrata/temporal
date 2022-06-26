@@ -11,7 +11,7 @@ export default function Footer() {
         />
         <a href="https://www.linode.com/"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
           className="hover:underline hover:underline-offset-4"
         >
           Linode
@@ -25,7 +25,7 @@ export default function Footer() {
         />
         <a href="https://www.hashnode.com/"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
           className="mr-1 hover:underline hover:underline-offset-4"
         > 
           Hashnode

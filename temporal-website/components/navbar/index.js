@@ -29,17 +29,17 @@ export default function Navbar() {
       </Link>
 
       {(!isLoading && user) ? (
-        <a href={message === "Logout" ? "/api/auth/logout" : "/app"}
+        <Link href={message === "Logout" ? "/api/auth/logout" : "/app"}
           className={`${message === "Logout" ? "bg-light-pink/20 text-light-pink hover:bg-light-pink/50" : "bg-light-pink/80 hover:bg-light-pink/100 text-zinc-100"} px-5 py-1 mr-10 border-none hover:text-zinc-200 transition-all duration-300 rounded-md`}
         >
           {message}
-        </a>
+        </Link>
       ) : (
-        <a href="/api/auth/login"
+        <Link href="/api/auth/login"
           className="px-5 py-1 mr-10 border-none text-light-pink hover:text-zinc-200 hover:bg-light-pink/50 bg-light-pink/20 transition-all duration-300 rounded-md"
         >
           Login
-        </a>
+        </Link>
       )}
     </nav>
   )

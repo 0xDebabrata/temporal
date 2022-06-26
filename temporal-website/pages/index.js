@@ -13,7 +13,7 @@ export default function Home() {
             Temporal
           </h1>
           <p className="my-5 text-xl text-center font-Michroma text-light-blue">
-            Temporal is here to help you remember every useful thing you've read on the web.
+            Temporal is here to help you remember every useful thing you&apos;ve read on the web.
           </p>
 
           <p className="my-20 text-zinc-200 font-Montserrat max-w-[600px] text-center mx-auto">
