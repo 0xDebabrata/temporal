@@ -26,6 +26,11 @@ def search(email: str, query: str = ""):
     articles = crud.search(email, query_emb)
     return articles
 
+@app.get("/similar/")
+def similar(email: str, id: str):
+    articles = crud.similarArticles(email, id)
+    return articles
+
 @app.post("/add-article")
 async def addArticle(article: Article):
     vector = model.encode(article.content)

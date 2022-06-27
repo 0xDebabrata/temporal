@@ -341,14 +341,14 @@ numpy = ">=1.17.3,<1.25.0"
 
 [[package]]
 name = "sentence-transformers"
-version = "2.2.1"
+version = "2.2.2"
 description = "Multilingual text embeddings"
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6.0"
 
 [package.dependencies]
-huggingface-hub = ">=0.8.1"
+huggingface-hub = ">=0.4.0"
 nltk = "*"
 numpy = "*"
 scikit-learn = "*"
@@ -1050,7 +1050,7 @@ scipy = [
     {file = "scipy-1.8.1.tar.gz", hash = "sha256:9e3fb1b0e896f14a85aa9a28d5f755daaeeb54c897b746df7a55ccb02b340f33"},
 ]
 sentence-transformers = [
-    {file = "sentence-transformers-2.2.1.tar.gz", hash = "sha256:097011ceb88e0cd96c37bbdc7f905032821e5de1cead18ec78e550ef525c0df7"},
+    {file = "sentence-transformers-2.2.2.tar.gz", hash = "sha256:dbc60163b27de21076c9a30d24b5b7b6fa05141d68cf2553fa9a77bf79a29136"},
 ]
 sentencepiece = [
     {file = "sentencepiece-0.1.96-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:cc969e6694fb27fba7cee2953f350804faf03913f25ae1ee713a7b8a1bc08018"},

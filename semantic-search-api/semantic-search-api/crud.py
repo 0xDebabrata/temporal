@@ -51,10 +51,44 @@ def search(email, query_emb):
 
     result = s.query(a.id, a.title, a.url, a.time).filter(
         and_(
-            models.Article.vector_emb.cosine_distance(query_emb) < 0.75,
+            models.Article.vector_emb.cosine_distance(query_emb) < 0.7,
             models.Article.user_email == email
         )
     ).order_by(models.Article.vector_emb.cosine_distance(query_emb)).all()
+
+    for row in result:
+        articles.append({
+            "id": row[0],
+            "title": row[1],
+            "url": row[2],
+            "time": row[3]
+        })
+
+    s.close()
+    return articles
+
+def similarArticles(email, id):
+    s = Session()
+    articles = []
+    a = models.Article
+
+    article = s.query(a.vector_emb).filter(
+        and_(
+            models.Article.id == id,
+            models.Article.user_email == email
+        )
+    ).all()
+
+    article_vector = article[0][0]
+
+    result = s.query(a.id, a.title, a.url, a.time).filter(
+        and_(
+            models.Article.user_email == email,
+            models.Article.vector_emb.cosine_distance(article_vector) < 0.7,
+            models.Article.id != id
+        )
+    ).order_by(models.Article.vector_emb.cosine_distance(article_vector)).limit(3).all()
+
 
     for row in result:
         articles.append({
