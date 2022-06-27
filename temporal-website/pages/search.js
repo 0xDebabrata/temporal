@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0"
+import Head from "next/head"
 
 import Search from '../components/Search';
 import Article from "../components/Article"
