@@ -18,6 +18,7 @@ const server = http.createServer(async (req, res) => {
         })
         .end("OK")
     } catch (error) {
+	    console.error(error)
       res
         .writeHead(500, {
           "Content-Type": "text/plain",
@@ -38,6 +39,7 @@ const server = http.createServer(async (req, res) => {
         })
         .end(JSON.stringify(articles))
     } catch (error) {
+	    console.error(error)
       res
         .writeHead(500, {
           "Content-Type": "text/plain",
@@ -60,6 +62,7 @@ const server = http.createServer(async (req, res) => {
           })
           .end(JSON.stringify({ data }))
       } catch (error) {
+	    console.error(error)
         res
           .writeHead(500, {
             "Content-Type": "text/plain",
@@ -90,6 +93,7 @@ const server = http.createServer(async (req, res) => {
         })
         .end(JSON.stringify(articles))
     } catch (error) {
+	    console.error(error)
       res
         .writeHead(500, {
           "Content-Type": "text/plain",
@@ -117,7 +121,9 @@ const parseBody = async (req) => {
 
 async function fetchData(url, email) {
   try {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({
+    	args: ["--no-sandbox"]
+    })
     const page = await browser.newPage()
     await page.setUserAgent("Temporal")
     await page.goto(url)
