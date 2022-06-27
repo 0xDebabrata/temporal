@@ -5,7 +5,7 @@ description = ""
 authors = ["Debabrata Mondal <debabrata.js@protonmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "~3.9"
 fastapi = "^0.78.0"
 uvicorn = "^0.17.6"
 sentence-transformers = "^2.2.0"
@@ -13,6 +13,8 @@ SQLAlchemy = "^1.4.37"
 pgvector = "^0.1.6"
 psycopg2-binary = "^2.9.3"
 python-decouple = "^3.6"
+supervisor = "^4.2.4"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 
