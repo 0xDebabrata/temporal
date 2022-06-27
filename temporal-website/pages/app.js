@@ -5,7 +5,6 @@ import Head from 'next/head';
 import Search from '../components/Search';
 import Article from "../components/Article"
 import AddButton from "../components/AddButton"
-import Spinner from "../components/Spinner"
 
 export default function Application({ user, articles }) {
   const [articlesList, setArticlesList] = useState(articles);
@@ -19,7 +18,6 @@ export default function Application({ user, articles }) {
       <div className="w-full background-gradient">
         <Search />
       </div>
-      <Spinner />
 
       <div className="mx-auto w-[80%] max-w-[1000px]">
         <h1 className="py-8 text-3xl font-bold text-zinc-200 font-Montserrat">
