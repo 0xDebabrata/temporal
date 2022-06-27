@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0"
+import Head from 'next/head';
 
 import Search from '../components/Search';
 import Article from "../components/Article"
@@ -10,6 +11,10 @@ export default function Application({ user, articles }) {
 
   return (
     <div className="min-h-screen py-5 bg-zinc-800">
+      <Head>
+        <title>Temporal</title>
+      </Head>
+
       <div className="w-full background-gradient">
         <Search />
       </div>

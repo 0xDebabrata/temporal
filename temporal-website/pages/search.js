@@ -10,6 +10,10 @@ export default function SearchPage({ articles, query, user }) {
 
   return (
     <div className="min-h-screen py-5 bg-zinc-800">
+      <Head>
+        <title>Temporal: {query}</title>
+      </Head>
+
       <div className="w-full background-gradient">
         <Search query={query} />
       </div>
