@@ -41,9 +41,17 @@ export default function Article({ article, setArticlesList }) {
             {article.title}
           </h2>
         </a>
-        <p className="truncate text-light-blue/60 transition-all duration-300 group-hover:text-light-pink/60">
-          Saved on: {new Date(article.time).toDateString()}
-        </p>
+        <div className="flex items-center justify-start mt-1">
+          <p className="truncate text-light-blue/60 transition-all duration-300 group-hover:text-light-pink/60">
+            Saved on: {new Date(article.time).toDateString()}
+          </p>
+
+          <button
+            className="px-4 ml-5 text-light-pink/60 transition-all hover:bg-light-pink/30 duration-300 rounded-md bg-light-pink/10"
+          >
+            Similar articles
+          </button>
+        </div>
       </div>
 
       <div onClick={handleDelete} className="min-w-[32px] rounded-md transition-all duration-300 bg-light-pink/10 hover:bg-light-pink/30 flex justify-center items-center h-[32px] ml-5">
