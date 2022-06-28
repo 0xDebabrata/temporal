@@ -21,7 +21,7 @@ export default function SearchPage({ articles, query, user }) {
 
       <div className="mx-auto w-[80%] max-w-[1000px]">
         <h1 className="py-8 text-3xl font-bold text-zinc-200 font-Montserrat">
-          Your articles
+          Search results
         </h1>
 
         
