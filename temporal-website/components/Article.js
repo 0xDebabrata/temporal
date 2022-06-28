@@ -5,8 +5,23 @@ import { getFaviconUrl } from "../utils/getFaviconUrl"
 
 import Spinner from "./Spinner"
 
-export default function Article({ article, setArticlesList }) {
+export default function Article({ article, setArticlesList, user }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [similarityLoading, setSimilarityLoading] = useState(false);
+
+  const getSimilarArticles = async () => {
+    setSimilarityLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/similar?email=${user.email}&id=${article.id}`);
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.error(error)
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setSimilarityLoading(false);
+    }
+  }
 
   const handleDelete = async () => {
     setIsLoading(true);
@@ -47,6 +62,7 @@ export default function Article({ article, setArticlesList }) {
           </p>
 
           <button
+            onClick={getSimilarArticles}
             className="px-4 ml-5 text-light-pink/60 transition-all hover:bg-light-pink/30 duration-300 rounded-md bg-light-pink/10"
           >
             Similar articles

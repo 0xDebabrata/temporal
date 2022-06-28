@@ -101,6 +101,28 @@ const server = http.createServer(async (req, res) => {
         })
         .end(error.message)
     }
+  } else if (url.pathname === "/similar") {
+    try {
+      const email = url.searchParams.get("email")
+      const id = url.searchParams.get("id")
+
+      const articles = await getSimilarArticles(email, id)
+
+      res
+        .writeHead(200, {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        })
+        .end(JSON.stringify(articles))
+    } catch (error) {
+      console.error(error)
+      res
+        .writeHead(500, {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": "*",
+        })
+        .end(error.message)
+    }
   }
 })
 
@@ -211,6 +233,18 @@ const search = async (email, query) => {
   return new Promise((resolve, reject) => {
     try {
       fetch(`http://localhost:8000/search/?email=${email}&query=${query}`)
+        .then(resp => resp.json())
+        .then(data => resolve(data))
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+const getSimilarArticles = async (email, id) => {
+  return new Promise((resolve, reject) => {
+    try {
+      fetch(`http://localhost:8000/similar/?email=${email}&id=${id}`)
         .then(resp => resp.json())
         .then(data => resolve(data))
     } catch (error) {

@@ -81,10 +81,10 @@ def similarArticles(email, id):
 
     article_vector = article[0][0]
 
-    result = s.query(a.id, a.title, a.url, a.time).filter(
+    result = s.query(a.id, a.title, a.url).filter(
         and_(
             models.Article.user_email == email,
-            models.Article.vector_emb.cosine_distance(article_vector) < 0.7,
+            models.Article.vector_emb.cosine_distance(article_vector) < 0.55,
             models.Article.id != id
         )
     ).order_by(models.Article.vector_emb.cosine_distance(article_vector)).limit(3).all()
@@ -95,7 +95,6 @@ def similarArticles(email, id):
             "id": row[0],
             "title": row[1],
             "url": row[2],
-            "time": row[3]
         })
 
     s.close()

@@ -32,7 +32,7 @@ export default function SearchPage({ articles, query, user }) {
             </h1>
 
             {articlesList.map(article => (
-              <Article key={article.id} setArticlesList={setArticlesList} article={article} />
+              <Article user={user} key={article.id} setArticlesList={setArticlesList} article={article} />
             ))}
           </>
         ) : (
