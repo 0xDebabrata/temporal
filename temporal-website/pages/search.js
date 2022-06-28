@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0"
 import Head from "next/head"
 
 import Search from '../components/Search';
 import Article from "../components/Article"
 import AddButton from "../components/AddButton"
+import Illustration from '../components/Illustration';
 
 export default function SearchPage({ articles, query, user }) {
   const [articlesList, setArticlesList] = useState(articles);
+
+  useEffect(() => {
+    setArticlesList(articles);
+  }, [articles]);
 
   return (
     <div className="min-h-screen py-5 bg-zinc-800">
@@ -20,14 +25,19 @@ export default function SearchPage({ articles, query, user }) {
       </div>
 
       <div className="mx-auto w-[80%] max-w-[1000px]">
-        <h1 className="py-8 text-3xl font-bold text-zinc-200 font-Montserrat">
-          Search results
-        </h1>
+        {articlesList.length > 0 ? (
+          <>
+            <h1 className="py-8 text-3xl font-bold text-zinc-200 font-Montserrat">
+              Search results
+            </h1>
 
-        
-        {articlesList.map(article => (
-          <Article key={article.id} setArticlesList={setArticlesList} article={article} />
-        ))}
+            {articlesList.map(article => (
+              <Article key={article.id} setArticlesList={setArticlesList} article={article} />
+            ))}
+          </>
+        ) : (
+          <Illustration />
+        )}
       </div>
 
       <AddButton user={user} />
@@ -43,6 +53,8 @@ export const getServerSideProps = withPageAuthRequired({
     const articles = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/search?email=${user.email}&query=${query}`)
       .then(resp => resp.json())
       .then(json => json)
+
+    console.log(articles)
 
     return {
       props: { articles, query, user }
