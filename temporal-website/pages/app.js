@@ -5,9 +5,11 @@ import Head from 'next/head';
 import Search from '../components/Search';
 import Article from "../components/Article"
 import AddButton from "../components/AddButton"
+import SimilarArticle from "../components/SimilarArticle"
 
 export default function Application({ user, articles }) {
   const [articlesList, setArticlesList] = useState(articles);
+  const [similarArticles, setSimilarArticles] = useState({});
 
   return (
     <div className="min-h-screen py-5 bg-zinc-800">
@@ -25,7 +27,33 @@ export default function Application({ user, articles }) {
         </h1>
 
         {articlesList.map(article => (
-          <Article user={user} key={article.id} setArticlesList={setArticlesList} article={article} />
+          <>
+            {(similarArticles.key && similarArticles.key === article.id) ? (
+              <>
+                <Article 
+                  user={user}
+                  key={article.id} 
+                  setArticlesList={setArticlesList} 
+                  article={article} 
+                  setSimilarArticles={setSimilarArticles}
+                />
+
+                <div className="mb-5">
+                  {similarArticles.articles.map(similarArticle => (
+                    <SimilarArticle key={similarArticle.id} article={similarArticle} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <Article 
+                user={user}
+                key={article.id} 
+                setArticlesList={setArticlesList} 
+                article={article} 
+                setSimilarArticles={setSimilarArticles}
+              />
+            )}
+          </>
         ))}
       </div>
 

@@ -5,7 +5,7 @@ import { getFaviconUrl } from "../utils/getFaviconUrl"
 
 import Spinner from "./Spinner"
 
-export default function Article({ article, setArticlesList, user }) {
+export default function Article({ article, setArticlesList, user, setSimilarArticles }) {
   const [isLoading, setIsLoading] = useState(false);
   const [similarityLoading, setSimilarityLoading] = useState(false);
 
@@ -14,7 +14,15 @@ export default function Article({ article, setArticlesList, user }) {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/similar?email=${user.email}&id=${article.id}`);
       const data = await response.json();
-      console.log(data)
+
+      if (data && data.length > 0) {
+        setSimilarArticles({
+          key: article.id,
+          articles: data
+        });
+      } else {
+        toast("No similar articles found")
+      }
     } catch (error) {
       console.error(error)
       toast.error("Something went wrong. Please try again later.");
@@ -63,9 +71,10 @@ export default function Article({ article, setArticlesList, user }) {
 
           <button
             onClick={getSimilarArticles}
-            className="px-4 ml-5 text-light-pink/60 transition-all hover:bg-light-pink/30 duration-300 rounded-md bg-light-pink/10"
+            className="w-[150px] h-[25px] flex items-center justify-center px-4 ml-5 text-light-pink/60 transition-all hover:bg-light-pink/30 duration-300 rounded-md bg-light-pink/10"
+            disabled={similarityLoading}
           >
-            Similar articles
+            {similarityLoading ? <Spinner /> : "Similar articles"}
           </button>
         </div>
       </div>
