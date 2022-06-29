@@ -32,3 +32,13 @@ a {
 .background-gradient {
   background: conic-gradient(from 179.96deg at 50% -50%, #AECAFFbb -65.63deg, #FFFFFFe0 22.46deg, #C4A9FFbb 105deg, #CBB3FFbb 222.87deg, #AECAFFbb 294.38deg, #FFFFFFe0 382.46deg);
 }
+
+.noise {
+  background: radial-gradient(circle, #AECAFF, transparent), url("/grain.svg");
+  filter: contrast(170%) brightness(140%);
+}
+
+.overlay {
+  background: #AECAFF;
+  mix-blend-mode: multiply;
+}
