@@ -6,9 +6,11 @@ import Search from '../components/Search';
 import Article from "../components/Article"
 import AddButton from "../components/AddButton"
 import Illustration from '../components/Illustration';
+import SimilarArticle from "../components/SimilarArticle"
 
 export default function SearchPage({ articles, query, user }) {
   const [articlesList, setArticlesList] = useState(articles);
+  const [similarArticles, setSimilarArticles] = useState({});
 
   useEffect(() => {
     setArticlesList(articles);
@@ -32,7 +34,33 @@ export default function SearchPage({ articles, query, user }) {
             </h1>
 
             {articlesList.map(article => (
-              <Article user={user} key={article.id} setArticlesList={setArticlesList} article={article} />
+              <>
+                {(similarArticles.key && similarArticles.key === article.id) ? (
+                  <>
+                    <Article 
+                      user={user}
+                      key={article.id} 
+                      setArticlesList={setArticlesList} 
+                      article={article} 
+                      setSimilarArticles={setSimilarArticles}
+                    />
+
+                    <div className="mb-5">
+                      {similarArticles.articles.map(similarArticle => (
+                        <SimilarArticle key={similarArticle.id} article={similarArticle} />
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <Article 
+                    user={user}
+                    key={article.id} 
+                    setArticlesList={setArticlesList} 
+                    article={article} 
+                    setSimilarArticles={setSimilarArticles}
+                  />
+                )}
+              </>
             ))}
           </>
         ) : (
@@ -53,8 +81,6 @@ export const getServerSideProps = withPageAuthRequired({
     const articles = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/search?email=${user.email}&query=${query}`)
       .then(resp => resp.json())
       .then(json => json)
-
-    console.log(articles)
 
     return {
       props: { articles, query, user }
